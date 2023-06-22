@@ -2,7 +2,7 @@ from parsers.headhunter_parser import HeadHunterParser
 from parsers.superjob_parser import SuperJobParser
 
 
-def get_search_experience_id(experience_index_input: int) -> list:
+def get_search_experience_id(index: int) -> list:
     """
     Вспомогательная функция получения id
     выбранного параметра опыта из справочников API
@@ -17,14 +17,26 @@ def get_search_experience_id(experience_index_input: int) -> list:
 
     #  получение id опыта для запроса к API HH
     hh_all_experience_dicts: list = HeadHunterParser().get_additional_dicts()["experience"]
-    hh_experience_dict = hh_all_experience_dicts[experience_index_input - 1]
+    hh_experience_dict = hh_all_experience_dicts[index - 1]
     experience_list.append(hh_experience_dict["id"])
 
     #  получение id опыта для запроса к API SJ
-    sj_experience_dict: dict = SuperJobParser().get_additional_data_dicts()["experience"]
-    for key in sj_experience_dict.keys():
-        if str(experience_index_input) == key:
-            experience_list.append(int(key))
+    sj_experience_dict: dict = SuperJobParser().get_towns_dict()
+    experience_keys = sorted(sj_experience_dict["experience"].keys())
+    search_experience_list = []
+
+    if index == 1:
+        search_experience_list.append(sj_experience_dict["experience"][experience_keys[0]]["id"])
+    elif index == 2:
+        search_experience_list.append(sj_experience_dict["experience"][experience_keys[1]]["id"])
+    elif index == 3:
+        search_experience_list.append(sj_experience_dict["experience"][experience_keys[2]]["id"])
+    elif index == 4:
+        search_experience_list.append(sj_experience_dict["experience"][experience_keys[3]]["id"])
+    else:
+        raise ValueError("Недопустимый индекс опыта работы.")
+
+    return search_experience_list
 
     return experience_list
 
