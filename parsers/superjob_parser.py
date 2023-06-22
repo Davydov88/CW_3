@@ -97,5 +97,5 @@ class SuperJobParser(ApiParserABCClass):
         response = requests.get("https://api.superjob.ru/2.0/towns/?all=true",
                                 headers=headers
                                 )
-        towns_dict: dict = response.json()["title"]
+        towns_dict: dict = response.json()
         return towns_dict
