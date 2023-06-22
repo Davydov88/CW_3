@@ -134,8 +134,8 @@ def interact_with_user():
         )
 
     else:
-        search_experience_hh = search_experience_list[0]
-        city_id_hh = city_data_list[0]
+        search_experience_hh = search_experience_list[1]
+        city_id_hh = city_data_list[1]
 
         HeadHunterFileProcessor().save_vacancies_to_file(
             filename="vacancies_hh.json",

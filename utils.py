@@ -21,7 +21,7 @@ def get_search_experience_id(index: int) -> list:
     experience_list.append(hh_experience_dict["id"])
 
     #  получение id опыта для запроса к API SJ
-    sj_experience_dict: dict = SuperJobParser().get_towns_dict()
+    sj_experience_dict: dict = SuperJobParser().get_additional_data_dicts()
     experience_keys = sorted(sj_experience_dict["experience"].keys())
     search_experience_list = []
 
