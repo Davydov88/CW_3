@@ -1,9 +1,9 @@
 import requests
-
+import json
 from parsers.parser_abc_class import ApiParserABCClass
 
 
-class HeadHunterParser(ApiParserABCClass):
+class HeadHunter(JobApi):
     """
     Класс получения данных по API HeadHunter
     """
