@@ -1,5 +1,9 @@
 def str_to_digit(input_str):
-    return int(input_str.split(" ")[0])
+    try:
+        return int(input_str.split(" ")[0])
+    except (ValueError, IndexError):
+        return 0  # Или любое другое значение по умолчанию, которое вы хотите использовать при ошибке
+
 
 
 class Vacancy:

@@ -1,3 +1,4 @@
+import requests
 from src.abc.abc_job_api import JobApi
 from requests import get
 import json
@@ -28,12 +29,11 @@ class HeadHunter(JobApi):
         for key, value in kwargs.items():
             params[key] = value
 
-        response = get(self._api_link, params=params)
+        response = requests.get(self._api_link, params=params)
 
         if response.status_code == 200:
-            data = response.text
-            data_dict = json.loads(data)
-            return data_dict
+            data = response.json()
+            return data
         else:
             print("Ошибка при выполнении запроса:", response.status_code)
             return None

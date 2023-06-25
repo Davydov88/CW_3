@@ -34,11 +34,14 @@ def interact_with_user():
                     res = platform().get_search_vacancies(search_query)
                     print(print_result_search(platform, res))
                     vacancies = []
-                    for vac in print_result_search(platform, res):
-                        vacancy = Vacancy(vac[0], vac[1], vac[2], vac[3], vac[4], vac[5], vac[6])
-                        vacancies.append(vacancy)
-                    input("Нажмите ENTER, чтобы продолжить!")
-                    break
+                    if print_result_search(platform, res) is not None:
+                        for vac in vacancies:
+                            if len(vac) == 7:  # Проверка на количество элементов
+                                vacancy = Vacancy(vac[0], vac[1], vac[2], vac[3], vac[4], vac[5], vac[6])
+                                vacancies.append(vacancy)
+                            else:
+                                print("Неверный формат данных для вакансии. Пропуск вакансии.")
+                                continue
 
                 elif choice == "2":
                     search_query = input("Введите поисковый запрос: ")
