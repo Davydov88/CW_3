@@ -12,7 +12,7 @@ class JobFile(ABC):
         pass
 
     @abstractmethod
-    def get_vacancies(self, criteria):
+    def get_vacancies(self, platform, **kwargs):
         """Возвращает данные о вакансиях, соответствующие указанным критериям"""
         pass
 

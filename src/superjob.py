@@ -20,22 +20,27 @@ class SuperJob(JobApi):
     def get_vacancies_api(self, **kwargs):
         """
         :param kwargs:
-        town - город ("Москва")
-        keyword - Поисковый запрос
-        count - Количество вакансий для вывода
+        keyword - Ключевое слово для поиска
+        town - Город (4 - Москва)
+        count - Количество вакансий
         """
-        params = kwargs
+
         headers = {
             'X-Api-App-Id': self._API_KEY
         }
 
+        params = {}
+        for key, value in kwargs.items():
+            params[key] = value
+
         response = requests.get(self._API_LINK, headers=headers, params=params)
+
         if response.status_code == 200:
-            data_dict = response.json()
-            return data_dict
+            data = response.json()
+            return data
         else:
-            print("Ошибка при выполнении запроса.")
-            return []
+            print("Ошибка при выполнении запроса:", response.status_code)
+            return None
 
     def get_search_vacancies(self, search_data, n=15):
         return self.get_vacancies_api(keyword=search_data, count=n)

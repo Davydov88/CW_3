@@ -13,11 +13,11 @@ class JobApi(ABC):
         pass
 
     @abstractmethod
-    def get_vacancies_api(self):
+    def get_vacancies_api(self, **kwargs):
         """Подключение к API и получение вакансий"""
         pass
 
     @staticmethod
-    def printj(data_dict) -> None:
+    def printj(data_dict):
         """Выводит словарь в json-подобном удобном формате с отступами (Для разработки)"""
         print(json.dumps(data_dict, indent=2, ensure_ascii=False))
