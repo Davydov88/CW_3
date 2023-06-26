@@ -1,12 +1,23 @@
+import os
+
 from src.func.prints import print_operations, print_welcome_user_1, print_welcome_user_2
 from src.func.prints import print_result_search
 from src.headhunter import HeadHunter
 from src.superjob import SuperJob
 from src.json_job_file import JSONJobFile
 from src.vacancy import Vacancy
+import json
 
+filename = "data_vacancies.json"
+
+# Определите полный путь к файлу
+file_path = os.path.join("data_vacancies", filename)
+
+# Создайте экземпляр класса JSONJobFile
+js_file = JSONJobFile(file_path)
 
 def interact_with_user():
+
     """Функция для взаимодействия с пользователем в консоли."""
     global res
     global vacancies
@@ -78,11 +89,11 @@ def interact_with_user():
                 else:
                     print("\nВЫБЕРИ ЗАПРОС ВЕРНО!\n")
                     continue
-
+            vacancies = []
             # Блок сохранения информации о вакансиях в файл
             filename = "data_vacancies.json"
             js_file = JSONJobFile(filename)  # JSON
-            file_path = js_file.add_vacancy(res)
+
 
             # Блок управления вакансиями в файле
             while True:
@@ -91,11 +102,13 @@ def interact_with_user():
                                     "0 - Назад\n")
 
                 if user_choice == "1":
-                    print(js_file.get_vacancies(platform))
+                    print(js_file.get_vacancies())
+
 
                 elif user_choice == "2":
-                    del_vacancy = input("id вакансии: ")
-                    vacancies = [vac for vac in vacancies if vac.id != del_vacancy]
+                    del_vacancy_id = input("id вакансии: ")
+                    file_path = js_file.delete_vacancy(del_vacancy_id)
+                    js_file = JSONJobFile(file_path)
 
                 elif user_choice == "0":
                     break
